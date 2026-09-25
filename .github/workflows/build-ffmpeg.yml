@@ -130,7 +130,15 @@ jobs:
           path: artifacts/
           pattern: output-*
           merge-multiple: true
+      # The LGPL requires offering the source of what we ship: the exact tarballs the build used
+      - name: Download sources
+        uses: actions/download-artifact@v8
+        with:
+          name: deps
+          path: sources/
       - name: Upload to release
         uses: softprops/action-gh-release@v3
         with:
-          files: artifacts/*.tar.gz
+          files: |
+            artifacts/*.tar.gz
+            sources/*
